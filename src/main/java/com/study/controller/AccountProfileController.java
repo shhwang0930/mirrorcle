@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,38 +29,55 @@ public class AccountProfileController {
 	public AccountProfileController(AccountMapper mapper) {
 		this.mapper = mapper;
 	}
-	
+
 	//회원가입 
 	@PutMapping("/create")
 	public void putAccountProfile(@RequestParam("id") String id, @RequestParam("pw") String pw, @RequestParam("email") String email, @RequestParam("name") String name) {
 		mapper.insertAccountProfile(id, pw, email, name);
 	}
 	
-	//회원삭제
-	@DeleteMapping("/delete/{id}")
-	public void deleteAccountProfile(@PathVariable("id") String id) {
-		mapper.deleteAccountProfile(id);
-	}
+	
 	
 	//아이디 중복확인
 	@GetMapping("/idcheck/{id}")
-	public String checkAccountId(@PathVariable("id") String id) {
-		if(mapper.checkAccountId(id) == 1) {
-			return "아이디 사용가능";
-		}
+	public JSONObject checkAccountId(@PathVariable("id") String id) {
+		JSONObject idcheckJson = new JSONObject();
+		if(mapper.checkAccountId(id) > 0){
+			idcheckJson.put("idcheck", 0);
+			return idcheckJson;//아이디 중복
+		}	
 		else{
-			return "아이디 중복";
+			idcheckJson.put("idcheck", 1);
+			return idcheckJson;//아이디 사용가능
 		}
-		
 	}
 	//로그인
 	@PostMapping("/login")
-	public String loginAccount(@RequestParam("id") String id, @RequestParam("pw") String pw) {
-		if(mapper.loginAccount(id, pw) == 1) {
-			return "로그인 성공";
-		}else {
-			return "로그인 실패";
-		}
+	public JSONObject loginAccount(@RequestParam("id") String id, @RequestParam("pw") String pw) {
+		JSONObject loginJson = new JSONObject();
+		loginJson.put("index", mapper.loginAccount(id, pw));
+		return loginJson;
+		
 	}
-
+	//아이디 찾기
+	@GetMapping("/idfind")
+	public JSONObject findAccountId(@RequestParam("name") String name,@RequestParam("email") String email ) {
+		JSONObject returnId = new JSONObject();
+		returnId.put("id", mapper.findAccountId(name, email));
+		return returnId;
+	}
+	
+	//pw찾기 1) pw찾기 위한 정보 입력 
+	@GetMapping("/pwfind")
+	public JSONObject findAccountPw(@RequestParam("id") String id,@RequestParam("name") String name,@RequestParam("email") String email ) {
+		JSONObject pwfindJson = new JSONObject();
+		pwfindJson.put("index", mapper.findAccountPw(id, name, email));
+		return pwfindJson;
+	}
+	
+	//pw찾기 2) 새로운 pw 입력 및 저장
+	@PutMapping("/pwcreate/{idx}")
+	public void createAccountPw(@PathVariable("idx") int idx, @RequestParam("pw") String pw) {
+		mapper.createAccountPw(pw, idx);
+	}
 }

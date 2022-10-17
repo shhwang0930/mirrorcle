@@ -1,27 +1,63 @@
 package com.study.model;
+import org.json.simple.JSONObject;
 
 public class UserProfile {
+	
+	public int getUserIdx() {
+		return userIdx;
+	}
+
+	public void setUserIdx(int userIdx) {
+		this.userIdx = userIdx;
+	}
+
 	public String getUserId() {
 		return userId;
 	}
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getAccountId() {
-		return AccountId;
+
+	public String getUserImage() {
+		return userImage;
 	}
-	public int getTemplateIdx() {
-		return TemplateIdx;
+
+	public void setUserImage(String userImage) {
+		this.userImage = userImage;
 	}
-	public int getIdx() {
-		return idx;
+
+	public String getUserTemplate() {
+		return userTemplate;
 	}
-	public UserProfile(String userId) {
-		super();
-		this.userId = userId;
+
+	public void setUserTemplate(String userTemplate) {
+		this.userTemplate = userTemplate;
 	}
-	private int idx;
+
+	public int getAccountIdx() {
+		return accountIdx;
+	}
+
+	public void setAccountIdx(int accountIdx) {
+		accountIdx = accountIdx;
+	}
+
+	private int userIdx;
 	private String userId;
-	private String AccountId;
-	private int TemplateIdx;
+	private String userImage;
+	private String userTemplate;
+	private int accountIdx;
+	
+	public UserProfile(int userIdx, String userId, String userImage, String userTemplate, int accountIdx) {
+		this.userIdx = userIdx;
+		this.userId = userId;
+		this.userImage = userImage;
+		this.userTemplate = userTemplate;
+		this.accountIdx = accountIdx;
+	}
+	
+	
+	
+	
 }

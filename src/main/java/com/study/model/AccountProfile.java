@@ -9,6 +9,9 @@ public class AccountProfile {
 		this.email = email;
 		this.name = name;
 	}
+	public AccountProfile() {
+		
+	}
 
 	private String id;
 	private String name;
