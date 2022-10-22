@@ -34,17 +34,26 @@ public class MirrorProfile {
 	public void setAccountIndex(int accountIndex) {
 		this.accountIndex = accountIndex;
 	}
+	public int getButton() {
+		return button;
+	}
+	public void setButton(int button) {
+		this.button = button;
+	}
 	private String serialNum;
 	private int mirrorIdx;
 	private int accountIndex;
 	private String acc_id;
 	private String acc_pw;
+	private int button;
 	
-	public MirrorProfile(String serialNum, int mirrorIdx, int accountIndex, String acc_id, String acc_pw) {
+	public MirrorProfile(String serialNum, int mirrorIdx, int accountIndex, String acc_id, String acc_pw, int button) {
 		this.serialNum = serialNum;
 		this.mirrorIdx = mirrorIdx;
 		this.accountIndex = accountIndex;
 		this.acc_id = acc_id;
 		this.acc_pw = acc_pw;
+		this.button = button;
 	}
+	
 }

@@ -24,6 +24,18 @@ public interface MirrorMapper {
 	int loginMirror(@Param("acc_id") String acc_id, @Param("acc_pw") String acc_pw);
 	
 	//버튼 눌렀을 때 맞는 유저 출력
-	@Select("SELECT user_idx FROM user LEFT OUTER JOIN account ON user.account_index = account.account_idx JOIN mirror ON account.account_idx = mirror.account_index WHERE mirror_idx = #{mirrorIdx}")
-	List<MirrorProfile> selectMirror();
+	@Select("SELECT user_idx FROM user LEFT OUTER JOIN account ON user.account_index = account.account_idx JOIN mirror ON account.account_idx = mirror.account_index WHERE serial_num = #{serialNum}")
+	List<Integer> selectMirror(@Param("serialNum") String serialNum);
+	
+	//최근에 불러온 유저 삽입
+	@Update("UPDATE account LEFT OUTER JOIN mirror ON account.account_idx = mirror.account_index SET change_user =#{changeUser} WHERE serial_num = #{serialNum}")
+	void updateChangeUser(@Param("changeUser") int changeUser, @Param("serialNum") String serialNum);
+	
+	//최근에 불러온 유저 반환
+	@Select("SELECT change_user from account left outer join mirror on account.account_idx = mirror.account_index where serial_num =#{serialNum}")
+	int selectChangeUser(@Param("serialNum") String serialNum);
+	
+	//최근에 불러온 유저의 템플릿 반환
+	@Select("SELECT user_template from user where user_idx = #{changeUser}")
+	String selectChangeTemplate(@Param("changeUser") int changeUser);
 }
