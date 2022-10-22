@@ -38,4 +38,12 @@ public interface MirrorMapper {
 	//최근에 불러온 유저의 템플릿 반환
 	@Select("SELECT user_template from user where user_idx = #{changeUser}")
 	String selectChangeTemplate(@Param("changeUser") int changeUser);
+	
+	//pir 절전 유무
+	@Update("UPDATE mirror SET pir_sensor =#{pirSensor} WHERE serial_num = #{serialNum}")
+	void pirSense(@Param("serialNum") String serialNum, @Param("pirSensor") int pirSensor);
+	
+	//pir 센서 반환
+	@Select("SELECT pir_sensor FROM mirror WHERE serial_num = #{serialNum}")
+	int reSensor(@Param("serialNum") String serialNum);
 }

@@ -4,6 +4,12 @@ public class MirrorProfile {
 	
 	
 	
+	public int getPirSensor() {
+		return pirSensor;
+	}
+	public void setPirSensor(int pirSensor) {
+		this.pirSensor = pirSensor;
+	}
 	public String getAcc_id() {
 		return acc_id;
 	}
@@ -46,14 +52,16 @@ public class MirrorProfile {
 	private String acc_id;
 	private String acc_pw;
 	private int button;
+	private int pirSensor;
 	
-	public MirrorProfile(String serialNum, int mirrorIdx, int accountIndex, String acc_id, String acc_pw, int button) {
+	public MirrorProfile(String serialNum, int mirrorIdx, int accountIndex, String acc_id, String acc_pw, int button, int pirSensor) {
 		this.serialNum = serialNum;
 		this.mirrorIdx = mirrorIdx;
 		this.accountIndex = accountIndex;
 		this.acc_id = acc_id;
 		this.acc_pw = acc_pw;
 		this.button = button;
+		this.pirSensor = pirSensor;
 	}
 	
 }

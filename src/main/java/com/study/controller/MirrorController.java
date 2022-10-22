@@ -48,4 +48,16 @@ public class MirrorController {
 		int changeUser = mapper.selectChangeUser(serialNum);
 		return mapper.selectChangeTemplate(changeUser);
 	}
+	
+	//미러 절전 데이터 삽입
+	@PutMapping("/pir")
+	public void pirSense(@RequestParam("serialNum") String serialNum, @RequestParam("pirSensor") int pirSensor) {
+		mapper.pirSense(serialNum, pirSensor);
+	}
+	
+	//미러 절전 데이터 반환
+	@GetMapping("/returnpir")
+	public int reSensor(@RequestParam("serialNum") String serialNum) {
+		return mapper.reSensor(serialNum);
+	}
 }
