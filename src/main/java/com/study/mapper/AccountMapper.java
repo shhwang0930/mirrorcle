@@ -28,7 +28,7 @@ public interface AccountMapper {
 	@Select("SELECT Account_id FROM account WHERE Account_name = #{name} AND Account_email = #{email}")
 	JSONObject findAccountId(@Param("name") String name, @Param("email") String email);
 	
-	@Select("SELECT Account_Idx FROM account WHERE Account_id = #{id} AND Account_name = #{name} AND Account_email = #{email}")
+	@Select("SELECT Account_pw FROM account WHERE Account_id = #{id} AND Account_name = #{name} AND Account_email = #{email}")
 	JSONObject findAccountPw(@Param("id") String id, @Param("name") String name, @Param("email") String email);
 	
 	@Update("UPDATE account SET Account_pw = #{pw} WHERE Account_idx = #{idx}")

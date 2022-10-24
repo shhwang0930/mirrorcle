@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import org.json.simple.JSONObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,9 +36,6 @@ public class AccountProfileController {
 	public void putAccountProfile(@RequestParam("id") String id, @RequestParam("pw") String pw, @RequestParam("email") String email, @RequestParam("name") String name) {
 		mapper.insertAccountProfile(id, pw, email, name);
 	}
-	
-	
-	
 	//아이디 중복확인
 	@GetMapping("/idcheck/{id}")
 	public JSONObject checkAccountId(@PathVariable("id") String id) {
@@ -55,26 +53,49 @@ public class AccountProfileController {
 	@PostMapping("/login")
 	public JSONObject loginAccount(@RequestParam("id") String id, @RequestParam("pw") String pw) {
 		JSONObject login = new JSONObject();
-		login = mapper.loginAccount(id, pw);
-		if(mapper.isConnectMirror(id, pw) == 1) {
-			login.put("mirrorIdx", mapper.ConnectMirror(id, pw));
-			return login;
+		JSONObject loginRes = mapper.loginAccount(id, pw);
+		if(loginRes == null) {
+			login.put("status", 500);
+		} else {
+			if(mapper.isConnectMirror(id, pw) == 1) {
+				loginRes.put("mirrorIdx", mapper.ConnectMirror(id, pw));
+			}
+			else {
+				loginRes.put("mirrorIdx", null);
+			}
+			loginRes.put("status", 200);
+			login = loginRes;
 		}
-		else {
-			login.put("mirrorIdx", null);
-			return login;
-		}
+		return login;
 	}
 	//아이디 찾기
 	@GetMapping("/idfind")
 	public JSONObject findAccountId(@RequestParam("name") String name,@RequestParam("email") String email ) {
-		return  mapper.findAccountId(name, email);
+		JSONObject idfind = new JSONObject();
+		JSONObject idfindRes = mapper.findAccountId(name, email);
+		if(idfindRes == null) {
+			idfind.put("status", 500);
+		}
+		else {
+			idfindRes.put("status", 200);
+			idfind = idfindRes;
+		}
+		return  idfind;
 	}
 	
 	//pw찾기 1) pw찾기 위한 정보 입력 
 	@GetMapping("/pwfind")
 	public JSONObject findAccountPw(@RequestParam("id") String id,@RequestParam("name") String name,@RequestParam("email") String email ) {
-		return mapper.findAccountPw(id, name, email);
+		JSONObject pwfind = new JSONObject();
+		JSONObject pwfindRes = mapper.findAccountPw(id, name, email);
+		if(pwfindRes == null) {
+			pwfind.put("status", 500);
+		}
+		else {
+			pwfindRes.put("status", 200);
+			pwfind = pwfindRes;
+		}
+		return pwfind;
 	}
 	
 	//pw찾기 2) 새로운 pw 입력 및 저장

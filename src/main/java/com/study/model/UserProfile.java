@@ -56,7 +56,12 @@ public class UserProfile {
 		this.userTemplate = userTemplate;
 		this.accountIdx = accountIdx;
 	}
-	
+	public UserProfile(int userIdx, String userId, String userImage, int accountIdx) {
+		this.userIdx = userIdx;
+		this.userId = userId;
+		this.userImage = userImage;
+		this.accountIdx = accountIdx;
+	}
 	
 	
 	

@@ -19,15 +19,18 @@ public interface UserMapper {
 	@Insert("INSERT INTO user(user_Id, Account_Index, user_image) VALUES(#{userId}, #{accountIdx}, #{userImage})")
 	int insertUser(@Param("userId")String userId, @Param("accountIdx")int accountIdx, @Param("userImage")String userImage);
 	
-	@Delete("DELETE FROM user WHERE Account_index = #{accountIdx} AND user_id = #{userId}")
-	int deleteUser(@Param("accountIdx") int  accountIdx, @Param("userId") String userId);
+	@Delete("DELETE FROM user WHERE Account_index = #{accountIdx} AND user_idx = #{userIdx}")
+	int deleteUser(@Param("accountIdx") int  accountIdx, @Param("userIdx") int userIdx);
 	
-	@Select("SELECT * FROM user WHERE Account_index = #{accountIdx} AND user_id = #{userId}")
-	List<UserProfile> selectUser(@Param("accountIdx") int  accountIdx, @Param("userId") String userId);
+	@Select("SELECT user_template FROM user WHERE Account_index = #{accountIdx} AND user_idx = #{userIdx}")
+	JSONObject selectUser(@Param("accountIdx") int  accountIdx, @Param("userIdx") int userIdx);
 	
-	@Select("SELECT * FROM user WHERE Account_index = #{accountIdx}")
+	@Select("SELECT user_idx, user_id, user_image, Account_index FROM user WHERE Account_index = #{accountIdx}")
 	List<UserProfile> selectAllacc(@Param("accountIdx") int  accountIdx);
 	
-	@Update("UPDATE user SET user_Template = #{userTemplate} WHERE Account_index = #{accountIdx} AND user_id = #{userId}")
-	int putTemplate(@Param("accountIdx") int  accountIdx, @Param("userId") String userId, @Param("userTemplate") String userTemplate);
+	@Update("UPDATE user SET user_Template = #{userTemplate} WHERE Account_index = #{accountIdx} AND user_idx = #{userIdx}")
+	int putTemplate(@Param("accountIdx") int  accountIdx, @Param("userIdx") int userIdx, @Param("userTemplate") String userTemplate);
+	
+	@Update("UPDATE user SET user_id =#{userId}, user_image=#{userImage} WHERE Account_index = #{accountIdx} AND user_idx = #{userIdx}")
+	int updateUser(@Param("accountIdx") int  accountIdx, @Param("userIdx") int userIdx, @Param("userId")String userId, @Param("userImage")String userImage);
 }

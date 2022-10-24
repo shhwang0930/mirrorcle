@@ -33,17 +33,25 @@ public class UserController {
 	}
 	
 	//유저삭제
-	@DeleteMapping("/")
-	public void deleteUser(@RequestParam("accountIdx") int accountIdx, @RequestParam("userId") String userId) {
-		mapper.deleteUser(accountIdx, userId);
+	@DeleteMapping("/delete")
+	public void deleteUser(@RequestParam("accountIdx") int accountIdx, @RequestParam("userId") int userIdx) {
+		mapper.deleteUser(accountIdx, userIdx);
 	}
 	
-	// 유저선택
+	// 유저선택(템플릿 반환)
 	@GetMapping("/select")
-	public List<UserProfile> selectUser(@RequestParam("accountIdx") int accountIdx, @RequestParam("userId") String userId) {
-		return mapper.selectUser(accountIdx, userId);
+	public JSONObject selectUser(@RequestParam("accountIdx") int accountIdx, @RequestParam("userIdx") int userIdx) {
+		JSONObject template = new JSONObject();
+		JSONObject templateRes = mapper.selectUser(accountIdx, userIdx);
+		if(templateRes == null) {
+			template.put("status", 500);
+		}
+		else {
+			templateRes.put("status", 200);
+			template = templateRes;
+		}
+		return template;
 	}
-	
 	//로그인후 해당 계정 유저 반환
 	@GetMapping("/allselect")
 	public List<UserProfile> selectAllacc(@RequestParam("accountIdx") int accountIdx) {
@@ -51,8 +59,14 @@ public class UserController {
 	}
 	//유저 템플릿 수정
 	@PutMapping("/template")
-	public void putTemplate(@RequestParam("accountIdx") int accountIdx, @RequestParam("userId") String userId, @RequestParam String userTemplate) {
-		mapper.putTemplate(accountIdx, userId, userTemplate);
+	public void putTemplate(@RequestParam("accountIdx") int accountIdx, @RequestParam("userIdx") int userIdx, @RequestParam String userTemplate) {
+		mapper.putTemplate(accountIdx, userIdx, userTemplate);
+	}
+	
+	//유저 수정
+	@PutMapping("/update")
+	public void updateUser(@RequestParam("accountIdx") int accountIdx, @RequestParam("userIdx") int userIdx, @RequestParam("userId") String userId, @RequestParam("userImage") String userImage) {
+		mapper.updateUser(accountIdx, userIdx, userId, userImage);
 	}
 	
 	// 템플릿 저장
