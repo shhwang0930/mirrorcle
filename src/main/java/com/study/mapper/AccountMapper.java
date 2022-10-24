@@ -33,4 +33,10 @@ public interface AccountMapper {
 	
 	@Update("UPDATE account SET Account_pw = #{pw} WHERE Account_idx = #{idx}")
 	int createAccountPw(@Param("pw") String pw, @Param("idx") int idx);
+	
+	@Select("SELECT count(*) FROM mirror LEFT OUTER JOIN account ON account.account_idx = mirror.account_index WHERE Account_id =#{id} AND Account_pw =#{pw}")
+	int isConnectMirror(@Param("id") String id, @Param("pw") String pw);
+	
+	@Select("SELECT mirror_idx FROM mirror LEFT OUTER JOIN account ON account.account_idx = mirror.account_index WHERE Account_id =#{id} AND Account_pw =#{pw}")
+	int ConnectMirror(@Param("id") String id, @Param("pw") String pw);
 }

@@ -28,8 +28,8 @@ public class UserController {
 	}
 	//유저생성
 	@PutMapping("/create")
-	public void putUser(@RequestParam("userId") String userId, @RequestParam("accountIdx") int accountIdx) {
-		mapper.insertUser(userId, accountIdx);
+	public void putUser(@RequestParam("userId") String userId, @RequestParam("accountIdx") int accountIdx, @RequestParam("userImage") String userImage) {
+		mapper.insertUser(userId, accountIdx, userImage);
 	}
 	
 	//유저삭제

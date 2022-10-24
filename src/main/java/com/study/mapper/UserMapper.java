@@ -16,8 +16,8 @@ import com.study.model.UserProfile;
 @Mapper
 public interface UserMapper {
 	
-	@Insert("INSERT INTO user(user_Id, Account_Index) VALUES(#{userId}, #{accountIdx})")
-	int insertUser(@Param("userId")String userId, @Param("accountIdx")int accountIdx);
+	@Insert("INSERT INTO user(user_Id, Account_Index, user_image) VALUES(#{userId}, #{accountIdx}, #{userImage})")
+	int insertUser(@Param("userId")String userId, @Param("accountIdx")int accountIdx, @Param("userImage")String userImage);
 	
 	@Delete("DELETE FROM user WHERE Account_index = #{accountIdx} AND user_id = #{userId}")
 	int deleteUser(@Param("accountIdx") int  accountIdx, @Param("userId") String userId);

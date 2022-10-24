@@ -54,25 +54,27 @@ public class AccountProfileController {
 	//로그인
 	@PostMapping("/login")
 	public JSONObject loginAccount(@RequestParam("id") String id, @RequestParam("pw") String pw) {
-		JSONObject loginJson = new JSONObject();
-		loginJson.put("index", mapper.loginAccount(id, pw));
-		return loginJson;
-		
+		JSONObject login = new JSONObject();
+		login = mapper.loginAccount(id, pw);
+		if(mapper.isConnectMirror(id, pw) == 1) {
+			login.put("mirrorIdx", mapper.ConnectMirror(id, pw));
+			return login;
+		}
+		else {
+			login.put("mirrorIdx", null);
+			return login;
+		}
 	}
 	//아이디 찾기
 	@GetMapping("/idfind")
 	public JSONObject findAccountId(@RequestParam("name") String name,@RequestParam("email") String email ) {
-		JSONObject returnId = new JSONObject();
-		returnId.put("id", mapper.findAccountId(name, email));
-		return returnId;
+		return  mapper.findAccountId(name, email);
 	}
 	
 	//pw찾기 1) pw찾기 위한 정보 입력 
 	@GetMapping("/pwfind")
 	public JSONObject findAccountPw(@RequestParam("id") String id,@RequestParam("name") String name,@RequestParam("email") String email ) {
-		JSONObject pwfindJson = new JSONObject();
-		pwfindJson.put("index", mapper.findAccountPw(id, name, email));
-		return pwfindJson;
+		return mapper.findAccountPw(id, name, email);
 	}
 	
 	//pw찾기 2) 새로운 pw 입력 및 저장
