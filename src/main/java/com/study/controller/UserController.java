@@ -34,7 +34,7 @@ public class UserController {
 	
 	//유저삭제
 	@DeleteMapping("/delete")
-	public void deleteUser(@RequestParam("accountIdx") int accountIdx, @RequestParam("userId") int userIdx) {
+	public void deleteUser(@RequestParam("accountIdx") int accountIdx, @RequestParam("userIdx") int userIdx) {
 		mapper.deleteUser(accountIdx, userIdx);
 	}
 	

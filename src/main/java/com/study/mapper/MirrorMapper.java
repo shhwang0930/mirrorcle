@@ -20,7 +20,7 @@ public interface MirrorMapper {
 	void connectMirror(@Param("serialNum") String serialNum, @Param("accountIndex") int accountIndex);
 	
 	//id, pw로 맞는 미러 idx 반환
-	@Select("SELECT mirror_idx from mirror left outer join account on mirror.account_index = account.account_idx where account_id =#{acc_id} and account_pw =#{acc_pw}")
+	@Select("SELECT mirror_idx from mirror left outer join account on mirror.account_index = account.account_idx where account_id =#{acc_id} and account_pw =sha2(#{acc_pw},256)")
 	int loginMirror(@Param("acc_id") String acc_id, @Param("acc_pw") String acc_pw);
 	
 	//버튼 눌렀을 때 맞는 유저 출력
