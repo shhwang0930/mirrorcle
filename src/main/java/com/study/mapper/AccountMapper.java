@@ -28,10 +28,10 @@ public interface AccountMapper {
 	@Select("SELECT Account_id FROM account WHERE Account_name = #{name} AND Account_email = #{email}")
 	JSONObject findAccountId(@Param("name") String name, @Param("email") String email);
 	
-	@Select("SELECT Account_pw FROM account WHERE Account_id = #{id} AND Account_name = #{name} AND Account_email = #{email}")
+	@Select("SELECT Account_idx FROM account WHERE Account_id = #{id} AND Account_name = #{name} AND Account_email = #{email}")
 	JSONObject findAccountPw(@Param("id") String id, @Param("name") String name, @Param("email") String email);
 	
-	@Update("UPDATE account SET Account_pw = #{pw} WHERE Account_idx = #{idx}")
+	@Update("UPDATE account SET Account_pw = sha2(#{pw},256) WHERE Account_idx = #{idx}")
 	int createAccountPw(@Param("pw") String pw, @Param("idx") int idx);
 	
 	@Select("SELECT count(*) FROM mirror LEFT OUTER JOIN account ON account.account_idx = mirror.account_index WHERE Account_id =#{id} AND Account_pw = sha2(#{pw},256)")

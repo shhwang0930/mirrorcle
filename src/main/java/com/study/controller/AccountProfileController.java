@@ -37,8 +37,8 @@ public class AccountProfileController {
 		mapper.insertAccountProfile(id, pw, email, name);
 	}
 	//아이디 중복확인
-	@GetMapping("/idcheck/{id}")
-	public JSONObject checkAccountId(@PathVariable("id") String id) {
+	@GetMapping("/idcheck")
+	public JSONObject checkAccountId(@RequestParam("id") String id) {
 		JSONObject idcheckJson = new JSONObject();
 		if(mapper.checkAccountId(id) > 0){
 			idcheckJson.put("idcheck", 0);
@@ -99,8 +99,8 @@ public class AccountProfileController {
 	}
 	
 	//pw찾기 2) 새로운 pw 입력 및 저장
-	@PutMapping("/pwcreate/{idx}")
-	public void createAccountPw(@PathVariable("idx") int idx, @RequestParam("pw") String pw) {
+	@PutMapping("/pwcreate")
+	public void createAccountPw(@RequestParam("idx") int idx, @RequestParam("pw") String pw) {
 		mapper.createAccountPw(pw, idx);
 	}
 }
