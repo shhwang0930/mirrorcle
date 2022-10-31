@@ -62,7 +62,4 @@ public class UserProfile {
 		this.userImage = userImage;
 		this.accountIdx = accountIdx;
 	}
-	
-	
-	
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,8 +52,10 @@ public class AccountProfileController {
 	}
 	//로그인
 	@PostMapping("/login")
-	public JSONObject loginAccount(@RequestParam("id") String id, @RequestParam("pw") String pw) {
+	public JSONObject loginAccount(@RequestBody AccountProfile accountProfile) {
 		JSONObject login = new JSONObject();
+		String id = accountProfile.getId();
+		String pw = accountProfile.getPw();
 		JSONObject loginRes = mapper.loginAccount(id, pw);
 		if(loginRes == null) {
 			login.put("status", 500);

@@ -2,8 +2,6 @@ package com.study.model;
 
 public class MirrorProfile {
 	
-	
-	
 	public int getPirSensor() {
 		return pirSensor;
 	}
@@ -54,7 +52,9 @@ public class MirrorProfile {
 	private int button;
 	private int pirSensor;
 	
-	public MirrorProfile(String serialNum, int mirrorIdx, int accountIndex, String acc_id, String acc_pw, int button, int pirSensor) {
+	public MirrorProfile(String serialNum, int mirrorIdx, int accountIndex, String acc_id, String acc_pw, int button,
+			int pirSensor) {
+		super();
 		this.serialNum = serialNum;
 		this.mirrorIdx = mirrorIdx;
 		this.accountIndex = accountIndex;

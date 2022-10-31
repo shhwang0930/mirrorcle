@@ -9,6 +9,9 @@ public class AccountProfile {
 		this.email = email;
 		this.name = name;
 	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public AccountProfile() {
 		
 	}

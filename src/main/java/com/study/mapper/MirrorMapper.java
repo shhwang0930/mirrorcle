@@ -16,7 +16,7 @@ import com.study.model.MirrorProfile;
 @Mapper
 public interface MirrorMapper {
 	//시리얼 넘버 넣기
-	@Update("UPDATE mirror SET Account_index = #{accountIdx} WHERE serial_num = #{serialNum}")
+	@Update("UPDATE mirror SET Account_index = #{accountIndex} WHERE serial_num = #{serialNum}")
 	void connectMirror(@Param("serialNum") String serialNum, @Param("accountIndex") int accountIndex);
 	
 	//id, pw로 맞는 미러 idx 반환
@@ -37,7 +37,7 @@ public interface MirrorMapper {
 	
 	//최근에 불러온 유저의 템플릿 반환
 	@Select("SELECT user_template from user where user_idx = #{changeUser}")
-	String selectChangeTemplate(@Param("changeUser") int changeUser);
+	JSONObject selectChangeTemplate(@Param("changeUser") int changeUser);
 	
 	//pir 절전 유무
 	@Update("UPDATE mirror SET pir_sensor =#{pirSensor} WHERE serial_num = #{serialNum}")
@@ -46,4 +46,7 @@ public interface MirrorMapper {
 	//pir 센서 반환
 	@Select("SELECT pir_sensor FROM mirror WHERE serial_num = #{serialNum}")
 	int reSensor(@Param("serialNum") String serialNum);
+	
+	@Select("SELECT serial_num FROM mirror WHERE Account_index = #{accountIndex}")
+	JSONObject returnAccidx(@Param("accountIndex") int accountIndex);
 }
